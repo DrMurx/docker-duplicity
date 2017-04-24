@@ -127,7 +127,8 @@ case "${1}" in
               --gpg-options="--pinentry-mode=loopback" \
               --encrypt-key="${PGP_ENCRYPT_KEY}" \
               --full-if-older-than=1M \
-              --volsize=1000 \
+              --volsize=512 \
+              --timeout=1200 \
               "${DATA_VOLUME}" \
               "${BACKUP_URL}" \
       | sed -e 's/^/  /g'
