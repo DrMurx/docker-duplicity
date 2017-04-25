@@ -124,6 +124,7 @@ case "${1}" in
     echo "Start duplicity backup to ${BACKUP_URL}"
     duplicity --archive-dir="${ARCHIVE_VOLUME}" \
               --name="${BACKUP_NAME}" \
+              --gpg-options="--pinentry-mode=loopback" \
               --encrypt-key="${PGP_ENCRYPT_KEY}" \
               --full-if-older-than=1M \
               --volsize=1000 \
