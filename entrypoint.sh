@@ -4,8 +4,6 @@
 KEYS_VOLUME="/keys"
 ARCHIVE_VOLUME="/archive"
 DATA_VOLUME="/data"
-BACKUP_HOST="${BACKUP_HOST:-backupserver}"
-BACKUP_BASE_URL="${BACKUP_BASE_URL:-sftp://${BACKUP_HOST}}"
 
 
 function error() {
@@ -89,6 +87,7 @@ function dumpPostgresql() {
 
 
 ## Assemble final BACKUP_BASE_URL
+[ -z ${BACKUP_BASE_URL} ] && error "Please specify BACKUP_BASE_URL environment variable!"
 [[ $(hostname -s) =~ ^[0-9a-f]{12}$ ]] && error "Please specify the --hostname parameter on docker run!"
 BACKUP_BASE_URL="${BACKUP_BASE_URL}/$(hostname -f)"
 
@@ -202,7 +201,11 @@ case "${1}" in
 
   df)
     headline "Backup space information"
-    echo "df -h" | sftp "${BACKUP_HOST}"
+    if [ "${BACKUP_BASE_URL:0:7}" = "sftp://" ]; then
+      echo "df -h" | sftp "${BACKUP_BASE_URL:7}"
+    else
+      error "No SFTP target"
+    fi
     ;;
 
   init)

@@ -7,8 +7,7 @@ This is an all-purpose backup tool for your container environment.
 
 ### Variables
 
-* `BACKUP_HOST`: Host to backup to (default: backupserver)
-* `BACKUP_BASE_URL`: Duplicity compatible URL to store the backup to (default: `sftp://$BACKUP_HOST`)
+* `BACKUP_BASE_URL`: Duplicity compatible URL to store the backup to.
 * `BACKUP_NAME`: Duplicity name for the backup
 * `PGP_ENCRYPT_KEY`: Username, email or GPG Key ID for backup encryption.
 
