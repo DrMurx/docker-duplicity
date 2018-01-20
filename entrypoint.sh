@@ -131,6 +131,7 @@ case "${1}" in
               "${DATA_VOLUME}" \
               "${BACKUP_URL}" \
       | sed -e 's/^/  /g'
+    [ ${PIPESTATUS[0]} -eq 0 ] || error "Duplicity went into an error"
 
     echo "Expire old backups on ${BACKUP_URL}"
     duplicity --archive-dir="${ARCHIVE_VOLUME}" \
